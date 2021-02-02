@@ -29,15 +29,7 @@ const routes=[
 
 
 
-var firebaseConfig = {
-  apiKey: "AIzaSyAJX0qj-74xTYhGuFETekgbvPQzFfc2ZpA",
-  authDomain: "authentication-62720.firebaseapp.com",
-  databaseURL: "https://authentication-62720-default-rtdb.firebaseio.com",
-  projectId: "authentication-62720",
-  storageBucket: "authentication-62720.appspot.com",
-  messagingSenderId: "681092632258",
-  appId: "1:681092632258:web:b75177d9111ae782e9b55b"
-};
+//Your Firebase Config Api key Here
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
