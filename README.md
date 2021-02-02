@@ -7,6 +7,11 @@ npm install firebase
 npm install router vue-router
 ```
 
+(Optional)
+```
+vue add bootstrap bootstrap-vue
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
