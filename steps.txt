@@ -1,0 +1,74 @@
+1. install npm packages for Vue
+	firebase ==> npm install firebase
+	router ==> npm install router vue-router
+
+//in the main.js import firebase and router packages and also take the api key from the firebase and initialize it.
+
+2. goto firebase-> login to your account-> go to authentication-> enable phone number authentication.
+	you can also add a dummy phone number and otp for testing purpose.
+
+3. Make a UI for taking phone number as input and submit button & a 2nd UI for taking the otp as input and a submit button for otp also. Then take a "div"  tag with an id to refer it for the container of the ReCAPTCHA 
+
+	eg: <div id="recaptcha-container"></div>
+
+4. Create an ovject og the RecaptchaVerifier using 
+
+firebase.auth.RecaptchaVerfier('login-button',{
+'size':'invisible',
+'callback':(response) => {
+   // reCAPTCHA solved, allow signInWithPhoneNumber.
+   console.log(response)
+   }
+}) 
+
+method and pass the id of the submit button which submits the phone number and an object with size, and callback.
+for more info about recaptcha see the firebase docs on phone number authentication.
+
+
+5. now assign the recaptcha-container to the object of the RecaptchaVerifier
+
+eg: recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container')  
+
+//recaptcha-container is the id of div tag
+
+
+6. render the recaptcha 
+
+=> this.recaptchaVerifier.render().then((widgetId)=>{
+	this.recaptchaWidgetId = widgetId
+   })
+
+
+7. Thereafter, call the function SignInWithPhoneNumber of the firebase and pass the phone number and the object of the recaptchaVerifier as the parameters.
+
+=> firebase.auth().signInWithPhoneNumber(number,this.recaptchaVerifier)
+   .then((confirmationResult)=>{                
+     this.confirmResult = confirmationResult
+     console.log(this.confirmResult)
+     alert("Sms Sent!")
+     this.smsSent=true
+    })
+    .catch((error)=>{
+      console.log("Sms not sent",error.message)
+    })
+
+// .then() returns the result.
+
+
+8. Now in the click event of the optn submit button call the confirm method of the object returned by SignInWithPhoneNumber() method. and pass the otp from the user as the paramter
+
+=> this.confirmResult.confirm(this.otpnum)
+   .then((result)=>{
+     alert("Registeration Successfull!",result)
+     this.gotonext()
+     var user = result.user
+     console.log(user)                
+   })
+   .catch((error)=>{
+     console.log(error)
+   })
+
+
+9. now run the npm serve and check the output of the project
+
+=> npm run serve
